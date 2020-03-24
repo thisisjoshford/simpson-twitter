@@ -53,13 +53,14 @@ describe('tweet routes', () => {
           .get('/api/v1/tweets');
       })
       .then(res => {
-        expect(res.body).toContainEqual(
-          { _id: expect.any(String),
-            handle: '@ronswansonbot',
-            text: 'Clear alcohols are for rich women on diets.',
-            __v: 0 
-          }
-        );
+        tweets.forEach(tweet => {
+          expect(res.body).toContainEqual(
+            { _id: expect.any(String),
+              ...tweet,
+              __v: 0 
+            }
+          );
+        });
       });
   });     
 });
