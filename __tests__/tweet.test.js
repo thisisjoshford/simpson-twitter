@@ -37,7 +37,6 @@ describe('tweet routes', () => {
   });
 
   it('gets all the tweets', () => {
-
     const tweets = [{
       handle: '@ronswansonbot',
       text: 'There has never been a sadness that can’t been cured by breakfast food.'
@@ -47,22 +46,21 @@ describe('tweet routes', () => {
       text: 'Clear alcohols are for rich women on diets.'
     }];
 
-    return Tweet.create(tweets)
+    return Tweet
+      .create(tweets)
       .then(() => {
         return request(app)
-          .get('api/v1/tweets');
+          .get('/api/v1/tweets');
       })
       .then(res => {
-        tweets.forEach(tweet => {
-          expect(res.body).toContainEqual(
-            { _id: expect.any(String),
-              handle: '@ronswansonbot',
-              text: 'Clear alcohols are for rich women on diets.',
-              __v: 0 
-            }
-          );
-        });
-      });     
-  });
+        expect(res.body).toContainEqual(
+          { _id: expect.any(String),
+            handle: '@ronswansonbot',
+            text: 'Clear alcohols are for rich women on diets.',
+            __v: 0 
+          }
+        );
+      });
+  });     
 });
   
