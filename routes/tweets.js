@@ -14,4 +14,3 @@ module.exports = Router()
       .then(tweets => res.send(tweets))
       .catch(next);
   });
-  
