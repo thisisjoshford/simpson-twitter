@@ -64,20 +64,17 @@ describe('tweet routes', () => {
       });
   });    
   
-  it('gets a tweet by ID', () => {
-    const tweet = {
-      handle: '@ronswansonbot',
-      text: 'There has never been a sadness that can’t been cured by breakfast food.'
-    };
-    return Tweet
-      .create(tweet)
-      .then(() => {
-        return request(app)
-          .get(`/api/v1/tweets/${tweet.id}`);
-      })
+  it('gets a tweet by ID', async() => {
+    const tweet = await Tweet
+      .create({
+        handle: '@ronswansonbot',
+        text: 'There has never been a sadness that can’t been cured by breakfast food.'
+      });
+    return request(app)
+      .get(`/api/v1/tweets/${tweet._id}`)
       .then(res => {
         expect(res.body).toEqual(
-          { _id: expect.any(String),
+          { _id: res.body._id,
             handle: '@ronswansonbot',
             text: 'There has never been a sadness that can’t been cured by breakfast food.',
             __v: 0 
@@ -85,6 +82,7 @@ describe('tweet routes', () => {
         );
       });
   });
-}); 
+});
+
 
   
