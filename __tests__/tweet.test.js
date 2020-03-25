@@ -103,6 +103,26 @@ describe('tweet routes', () => {
         });
       });
   });
+
+  it('deletes a tweet by id', () => {
+    return Tweet
+      .create({
+        handle: '@ronswansonbot',
+        text: 'There has never been a sadness that can’t been cured by breakfast food.'
+      })
+      .then(tweet => {
+        return request(app)
+          .delete(`/api/v1/tweets/${tweet._id}`);
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          handle: '@ronswansonbot',
+          text: 'There has never been a sadness that can’t been cured by breakfast food.',
+          __v: 0
+        });
+      });
+  });
 });
 
 
