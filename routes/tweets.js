@@ -35,5 +35,12 @@ module.exports = Router()
       .findByIdAndUpdate(req.params.id, { text: req.body.text }, { new: true })
       .then(tweet => res.send(tweet))
       .catch(next);
+  })
+  
+  .delete('/:id', (req, res, next) => {
+    Tweet
+      .findByIdAndDelete(req.params.id)
+      .then(tweet => res.send(tweet))
+      .catch(next);
   });
 
