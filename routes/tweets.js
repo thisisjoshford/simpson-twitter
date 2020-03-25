@@ -11,13 +11,7 @@ module.exports = Router()
   .get('/:id', (req, res, next) => {
     Tweet
       .findById(req.params.id)
-      .then(tweet => res.send(tweet))
-      .catch(next);
-  })
-
-  .get('/:id', (req, res, next) => {
-    Tweet
-      .findById(req.params.id)
+      .populate('comments')
       .then(tweet => res.send(tweet))
       .catch(next);
   })
