@@ -82,6 +82,27 @@ describe('tweet routes', () => {
         );
       });
   });
+
+  it('updates a tweet by id', () => {
+    return Tweet
+      .create({
+        handle: '@ronswansonbot',
+        text: 'There has never been a sadness that can’t been cured by breakfast food.'
+      })
+      .then(tweet => {
+        return request(app)
+          .patch(`/api/v1/tweets/${tweet._id}`)
+          .send({ text: 'There has never been a sadness that can’t been cured by FOOD.' });
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          handle: '@ronswansonbot',
+          text: 'There has never been a sadness that can’t been cured by FOOD.',
+          __v: 0
+        });
+      });
+  });
 });
 
 
