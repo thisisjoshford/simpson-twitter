@@ -16,7 +16,14 @@ module.exports = Router()
       .populate('tweetId')
       .then(comment => res.send(comment))
       .catch(next);
-  });
+  })
   
+  .patch('/:id', (req, res, next) => {
+    Comment
+      .findByIdAndUpdate(req.params.id, { text: req.body.text }, { new: true })
+      .then(comment => res.send(comment))
+      .catch(next);
+  });
+
 
 
