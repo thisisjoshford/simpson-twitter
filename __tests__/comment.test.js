@@ -39,6 +39,35 @@ describe('comment routes', () => {
       });     
   });
 
+  it('gets a comment by id', async() => {
+    const tweet = await Tweet.create({
+      handle: '@ronswansonbot',
+      text: 'There has never been a sadness that can’t been cured by breakfast food.'
+    });
+
+    const comment = await Comment
+      .create({
+        tweetId: tweet._id,
+        handle: '@ronswansonbotfollower',
+        text: 'killer tweet!'
+      });
+
+    return request(app)
+      .get(`/api/v1/comments/${comment._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          tweetId: {
+            ...tweet.toJSON(),
+            _id: tweet.id
+          },
+          handle: '@ronswansonbotfollower',
+          text: 'killer tweet!',
+          __v: 0
+        });
+      });
+  });
+
 });
 
 
