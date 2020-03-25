@@ -27,7 +27,6 @@ module.exports = Router()
       .find()
       .then(tweets => res.send(tweets))
       .catch(next);
-  
   })
   
   .patch('/:id', (req, res, next) => {
@@ -36,7 +35,7 @@ module.exports = Router()
       .then(tweet => res.send(tweet))
       .catch(next);
   })
-  
+
   .delete('/:id', (req, res, next) => {
     Tweet
       .findByIdAndDelete(req.params.id)
