@@ -123,6 +123,22 @@ describe('tweet routes', () => {
         });
       });
   });
+
+  it('creates a tweet with random text', () => {
+    return request(app)
+      .post('/api/v1/tweets')
+      .send({
+        handle: '@ronswansonbot',
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          handle: '@ronswansonbot',
+          text: expect.any(String),
+          __v: 0
+        });
+      });
+  });
 });
 
 
